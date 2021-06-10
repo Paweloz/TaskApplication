@@ -12,4 +12,7 @@ import java.util.Optional;
 public interface TaskRepository extends CrudRepository<Task, Long> {
     List<Task> findAll();
     Optional<Task> findById(Long id);
+
+    @Override
+    void deleteById(Long aLong);
 }
