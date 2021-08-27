@@ -17,9 +17,9 @@ class TrelloMapperTestSuite {
     @Autowired
     private TrelloMapper trelloMapper;
     private final List<TrelloBoardDto> trelloBoardDtoList = new ArrayList<>();
-    private final static List<TrelloBoard> trelloBoardList = new ArrayList<>();
-    private final static List<TrelloListDto> trelloListDtoList = new ArrayList<>();
-    private final static List<TrelloList> trelloLists = new ArrayList<>();
+    private final List<TrelloBoard> trelloBoardList = new ArrayList<>();
+    private final List<TrelloListDto> trelloListDtoList = new ArrayList<>();
+    private final List<TrelloList> trelloLists = new ArrayList<>();
 
     @Test
     void shouldMapBoardDtosToBoards() {
