@@ -9,7 +9,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -34,6 +33,26 @@ class SimpleEmailServiceTest {
         mailMessage.setSubject(mail.getSubject());
         mailMessage.setText(mail.getMessage());
         mailMessage.setCc(mail.getToCc());
+
+        //When
+        simpleEmailService.send(mail);
+
+        //Then
+        verify(javaMailSender, times(1)).send(mailMessage);
+    }
+
+    @Test
+    void shouldSendMailWithoutCc() {
+        //Given
+        Mail mail = Mail.builder()
+                .receiverEmail("test@test.com")
+                .subject("Test")
+                .message("Test")
+                .build();
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(mail.getReceiverEmail());
+        mailMessage.setSubject(mail.getSubject());
+        mailMessage.setText(mail.getMessage());
 
         //When
         simpleEmailService.send(mail);
