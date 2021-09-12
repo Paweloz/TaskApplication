@@ -23,6 +23,7 @@ public class EmailScheduler {
                 .receiverEmail(adminConfig.getAdminMail())
                 .subject(SUBJECT)
                 .message("Currently in database you got: " + coutTasks())
+                .goodbye_message("Thank you for using our app")
                 .build());
     }
 

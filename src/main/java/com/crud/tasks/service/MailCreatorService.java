@@ -1,6 +1,7 @@
 package com.crud.tasks.service;
 
 import com.crud.tasks.config.AdminConfig;
+import com.crud.tasks.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -18,6 +19,7 @@ public class MailCreatorService {
 
     @Qualifier("templateEngine")
     private final TemplateEngine templateEngine;
+    private final TaskRepository taskRepository;
 
     private final AdminConfig adminConfig;
 
@@ -41,6 +43,28 @@ public class MailCreatorService {
         context.setVariable("is_friend", true);
         context.setVariable("application_functionality", functionality);
         return templateEngine.process("mail/created-trello-card-mail", context);
+    }
+
+    public String buildTasksReminderEmail(String message, String goodbye_message) {
+        Context context = new Context();
+        long taskCount = taskRepository.count();
+
+        context.setVariable("message", message);
+        context.setVariable("preview_message", message.substring(0,20));
+        context.setVariable("tasks_url", "http://localhost:8888/tasks_frontend");
+        context.setVariable("button", "Visit website");
+        context.setVariable("admin_name", adminConfig.getAdminName());
+        context.setVariable("company_details", adminConfig.getCompanyDetails());
+        context.setVariable("goodbye_message", goodbye_message);
+        context.setVariable("is_friend", true);
+
+        if(taskCount > 0) {
+            context.setVariable("show_button", true);
+        }else {
+            context.setVariable("show_button", false);
+        }
+
+        return templateEngine.process("mail/daily-tasks-reminder", context);
     }
 
 }

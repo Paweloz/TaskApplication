@@ -37,7 +37,7 @@ public class SimpleEmailService {
             messageHelper.setTo(mail.getReceiverEmail());
             messageHelper.setSubject(mail.getSubject());
             messageHelper.setText(
-                    mailCreatorService.buildTrelloCardEmail(mail.getMessage(), mail.getGoodbye_message()), true
+                    mailCreatorService.buildTasksReminderEmail(mail.getMessage(), mail.getGoodbye_message()), true
             );
         };
     }
