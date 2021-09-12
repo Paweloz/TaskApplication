@@ -57,12 +57,7 @@ public class MailCreatorService {
         context.setVariable("company_details", adminConfig.getCompanyDetails());
         context.setVariable("goodbye_message", goodbye_message);
         context.setVariable("is_friend", true);
-
-        if(taskCount > 0) {
-            context.setVariable("show_button", true);
-        }else {
-            context.setVariable("show_button", false);
-        }
+        context.setVariable("taskCount", taskCount);
 
         return templateEngine.process("mail/daily-tasks-reminder", context);
     }
