@@ -31,6 +31,7 @@ public class TrelloService {
                 .receiverEmail(adminConfig.getAdminMail())
                 .subject(SUBJECT)
                 .message("New card: " + trelloCardDto.getName() + " has been created on your Trello account")
+                .goodbye_message("Thank you " + adminConfig.getAdminName() + " for working with us")
                 .build())
         );
         return newCard;
